@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cat Wall Surprise 🐾</title>
+    <style>
+        body { background: #fff0f5; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
+        .header { text-align: center; color: #d02090; margin-bottom: 20px; }
+        .wall { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1100px; }
+        .post { background: white; border: 2px solid #ffb6c1; border-radius: 15px; width: 300px; padding: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .post:hover { transform: translateY(-5px); }
+        .post img { width: 100%; border-radius: 10px; margin-bottom: 10px; max-height: 250px; object-fit: cover; }
+        .post-text { font-size: 16px; color: #444; line-height: 1.4; font-style: italic; }
+        .post-author { font-weight: bold; color: #ff69b4; display: block; margin-top: 10px; font-size: 1.1em; }
+        .form-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 40px; width: 100%; max-width: 500px; }
+        input, textarea { width: 100%; margin-bottom: 12px; border: 1px solid #ffb6c1; padding: 10px; border-radius: 8px; box-sizing: border-box; outline: none; }
+        button { background: #ff69b4; color: white; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; }
+        button:hover { background: #d02090; }
+        /* Скрытие формы */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🐾 Our Cat-Wall for You! 🐾</h1>
+        <p id="sub-header">Leave a message and a cat picture to make her day!</p>
+    </div>
+
+    <div class="form-box" id="inputForm">
+        <input type="text" id="nick" placeholder="Your Name">
+        <textarea id="wish" placeholder="Your birthday wish..."></textarea>
+        <input type="text" id="imgUrl" placeholder="Cat image link (URL)">
+        <button onclick="sendPost()">🐾 Leave a Mark</button>
+    </div>
+
+    <div class="wall" id="wall">Loading paws...</div>
+
+    <script>
+        const API_KEY = '$2a$10$olrRaS6Oza4/jOD2kp/i9.MBq833opKJVgn6iYNr8wiGc.5AYF9L2'; // Не забудь вставить свой ключ
+        const BIN_ID = '69ef362536566621a8f7de2b';   // Не забудь вставить свой ID
+
+        // Проверка режима сюрприза
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('gift')) {
+            document.getElementById('inputForm').classList.add('hidden');
+            document.getElementById('sub-header').innerText = "Happy Birthday! Here are some purr-fect wishes from us!";
+        }
+
+        async function loadPosts() {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': API_KEY }
+                });
+                const data = await res.json();
+                renderWall(data.record.messages || []);
+            } catch (e) { document.getElementById('wall').innerText = "Error loading messages :("; }
+        }
+
+        function renderWall(messages) {
+            const wall = document.getElementById('wall');
+            wall.innerHTML = messages.map(m => `
+                <div class="post">
+                    ${m.img ? `<img src="${m.img}" onerror="this.style.display='none'">` : ''}
+                    <p class="post-text">"${m.text}"</p>
+                    <span class="post-author">— ${m.name}</span>
+                </div>
+            `).reverse().join(''); // Реверс, чтобы новые были сверху
+        }
+
+        async function sendPost() {
+            const name = document.getElementById('nick').value;
+            const text = document.getElementById('wish').value;
+            const img = document.getElementById('imgUrl').value;
+
+            if (!name || !text) return alert('Please enter your name and wish!');
+
+            const btn = document.querySelector('button');
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                headers: { 'X-Master-Key': API_KEY }
+            });
+            const currentData = await res.json();
+            const messages = currentData.record.messages || [];
+
+            messages.push({ name, text, img });
+
+            await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'X-Master-Key': API_KEY },
+                body: JSON.stringify({ messages })
+            });
+
+            location.reload();
+        }
+
+        loadPosts();
+    </script>
+</body>
+</html>
