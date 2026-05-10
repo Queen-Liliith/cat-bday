@@ -13,16 +13,14 @@
     gap: 20px; 
     justify-content: center; 
     width: 100%; 
-    max-width: 1100px; /* Сужаем «корсет» всей стены */
+    max-width: 1200px; /* Увеличили с 1100 до 1200, чтобы влез третий блок */
 }
 
-.post { 
+        .post { 
     background: white; 
     border: 2px solid #ffb6c1; 
     border-radius: 20px; 
-    flex: 0 1 calc(33.333% - 20px); /* Четко 1/3 ряда минус отступы */
-    min-width: 300px; 
-    max-width: 340px;               /* Ограничиваем ширину каждого блока */
+    flex: 0 1 320px;   /* Зафиксировали базу на 320px */
     padding: 15px; 
     box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
     display: flex; 
