@@ -12,8 +12,8 @@
     background: white; 
     border: 2px solid #ffb6c1; 
     border-radius: 20px; 
-    flex: 1 1 320px;       /* Базовая ширина, чтобы влезло ровно три */
-    max-width: 420px;       /* Не дает им стать слишком гигантскими */
+    flex: 0 1 30%;          /* Запрещаем сильно сжиматься, ставим 30% ширины */
+    min-width: 320px;       /* Не даем стать слишком узкими */
     padding: 20px; 
     box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
     transition: 0.3s; 
@@ -24,10 +24,9 @@
     width: 100%;
     border-radius: 10px;
     margin-bottom: 10px;
-    max-height: 250px;
-    object-fit: cover;
-    cursor: zoom-in;
-    transition: transform 0.2s;
+    max-height: 350px;      /* Можно чуть увеличить высоту */
+    object-fit: contain;    /* ВАЖНО: теперь картинка впишется целиком без обрезки! */
+    background-color: #f9f9f9; /* Легкий фон, если пропорции фото не совпадут */
 }
 .post img.zoomed {
     position: fixed !important;
