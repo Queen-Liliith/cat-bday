@@ -9,30 +9,29 @@
         .wall { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1100px; }
         .post { background: white; border: 2px solid #ffb6c1; border-radius: 15px; width: 300px; padding: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
         .post:hover { transform: translateY(-5px); }
-.post img.zoomed {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(1.1); /* Центрируем и немного увеличиваем */
-    max-width: 90vw; /* 90% ширины экрана */
-    max-height: 80vh; /* 80% высоты экрана */
-    width: auto;
-    height: auto;
-    z-index: 10000;
-    box-shadow: 0 0 100px rgba(0,0,0,0.5);
-    object-fit: contain;
-    border: 5px solid white;
-    cursor: zoom-out;
-}
-.zoom-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+.post img {
     width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    display: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-height: 250px;
+    object-fit: cover;
+    cursor: zoom-in;
+    transition: transform 0.2s;
+}
+.post img.zoomed {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(1);
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+    z-index: 10000 !important;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+    object-fit: contain !important;
+    border: 4px solid white;
+    cursor: zoom-out;
 }
         .post-text { font-size: 16px; color: #444; line-height: 1.4; font-style: italic; }
         .post-author { font-weight: bold; color: #ff69b4; display: block; margin-top: 10px; font-size: 1.1em; }
@@ -121,14 +120,13 @@
         }
 
         loadPosts();
-        function toggleZoom(img) {
+function toggleZoom(img) {
     img.classList.toggle('zoomed');
     
-    // Если картинка увеличилась, добавим возможность закрыть её кликом по ней же
     if (img.classList.contains('zoomed')) {
-        document.body.style.overflow = 'hidden'; // Запрещаем прокрутку сайта, пока смотрим фото
+        document.body.style.overflow = 'hidden'; // замирает фон
     } else {
-        document.body.style.overflow = 'auto'; // Возвращаем прокрутку
+        document.body.style.overflow = 'auto'; // фон снова можно крутить
     }
 }
     </script>
