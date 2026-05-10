@@ -8,7 +8,18 @@
         body { background: #fff0f5; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
         .header { text-align: center; color: #d02090; margin-bottom: 20px; }
         .wall { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 95%; max-width: 1600px; }
-.post { background: white; border: 2px solid #ffb6c1; border-radius: 20px; flex: 1 1 350px; max-width: 500px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+.post { 
+    background: white; 
+    border: 2px solid #ffb6c1; 
+    border-radius: 20px; 
+    flex: 1 1 280px;      /* Уменьшили базу с 350px до 280px, чтобы влезло больше */
+    max-width: 350px;      /* Ограничили ширину, чтобы они не раздувались */
+    padding: 20px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    transition: 0.3s; 
+    display: flex; 
+    flex-direction: column; 
+}
 .post img {
     width: 100%;
     border-radius: 10px;
