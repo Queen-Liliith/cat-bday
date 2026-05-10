@@ -7,16 +7,24 @@
         @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;700&family=Nunito:wght@400;700&display=swap');
         body { background: #fff0f5; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
         .header { text-align: center; color: #d02090; margin-bottom: 20px; }
-        .wall { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; width: 95%; max-width: 1600px; }
+        .wall { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 20px; 
+    justify-content: center; 
+    width: 100%; 
+    max-width: 1100px; /* Сужаем «корсет» всей стены */
+}
+
 .post { 
     background: white; 
     border: 2px solid #ffb6c1; 
     border-radius: 20px; 
-    flex: 0 1 30%;          /* Запрещаем сильно сжиматься, ставим 30% ширины */
-    min-width: 320px;       /* Не даем стать слишком узкими */
-    padding: 20px; 
+    flex: 0 1 calc(33.333% - 20px); /* Четко 1/3 ряда минус отступы */
+    min-width: 300px; 
+    max-width: 340px;               /* Ограничиваем ширину каждого блока */
+    padding: 15px; 
     box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-    transition: 0.3s; 
     display: flex; 
     flex-direction: column; 
 }
