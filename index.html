@@ -61,7 +61,7 @@
             const wall = document.getElementById('wall');
             wall.innerHTML = messages.map(m => `
                 <div class="post">
-                  ${m.img ? `<img src="${m.img}" onerror="this.style.display='none'" style="cursor:zoom-in" onclick="window.open('${m.img}', '_blank')">` : ''}
+                  ${m.img ? `<img src="${m.img}" onerror="this.style.display='none'" style="cursor: pointer;" onclick="if(this.requestFullscreen) { this.requestFullscreen(); } else { window.open('${m.img}', '_blank'); }">` : ''}
                     <p class="post-text">"${m.text}"</p>
                     <span class="post-author">— ${m.name}</span>
                 </div>
