@@ -15,16 +15,17 @@
     margin-bottom: 10px;
     max-height: 250px;
     object-fit: cover;
-    transition: transform 0.3s ease; /* Делает увеличение плавным */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Делает увеличение "прыгучим" и приятным */
     cursor: zoom-in;
 }
 
-/* Эффект при наведении или клике */
+/* Эффект при наведении или нажатии */
 .post img:hover, .post img:active {
-    transform: scale(1.15); /* Увеличивает картинку на 15% */
+    transform: scale(1.8); /* Увеличивает картинку почти в 2 раза */
     position: relative;
-    z-index: 10; /* Картинка будет выше текста и других постов */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Добавляем тень для объема */
+    z-index: 999; /* Выводит картинку на самый передний план, поверх всего текста */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* Плотная тень, чтобы картинка "парила" */
+    border-radius: 5px; /* Немного уменьшаем скругление при увеличении, чтобы лучше видеть края */
 }
         .post-text { font-size: 16px; color: #444; line-height: 1.4; font-style: italic; }
         .post-author { font-weight: bold; color: #ff69b4; display: block; margin-top: 10px; font-size: 1.1em; }
