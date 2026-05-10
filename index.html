@@ -9,7 +9,23 @@
         .wall { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; width: 100%; max-width: 1100px; }
         .post { background: white; border: 2px solid #ffb6c1; border-radius: 15px; width: 300px; padding: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; }
         .post:hover { transform: translateY(-5px); }
-        .post img { width: 100%; border-radius: 10px; margin-bottom: 10px; max-height: 250px; object-fit: cover; }
+        .post img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease; /* Делает увеличение плавным */
+    cursor: zoom-in;
+}
+
+/* Эффект при наведении или клике */
+.post img:hover, .post img:active {
+    transform: scale(1.15); /* Увеличивает картинку на 15% */
+    position: relative;
+    z-index: 10; /* Картинка будет выше текста и других постов */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Добавляем тень для объема */
+}
         .post-text { font-size: 16px; color: #444; line-height: 1.4; font-style: italic; }
         .post-author { font-weight: bold; color: #ff69b4; display: block; margin-top: 10px; font-size: 1.1em; }
         .form-box { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 40px; width: 100%; max-width: 500px; }
@@ -61,7 +77,7 @@
             const wall = document.getElementById('wall');
             wall.innerHTML = messages.map(m => `
                 <div class="post">
-                  ${m.img ? `<img src="${m.img}" onerror="this.style.display='none'" style="cursor: pointer;" onclick="if(this.requestFullscreen) { this.requestFullscreen(); } else { window.open('${m.img}', '_blank'); }">` : ''}
+                  ${m.img ? `<img src="${m.img}" onerror="this.style.display='none'">` : ''}
                     <p class="post-text">"${m.text}"</p>
                     <span class="post-author">— ${m.name}</span>
                 </div>
